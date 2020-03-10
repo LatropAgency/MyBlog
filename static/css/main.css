@@ -73,10 +73,12 @@ a.my_blog:hover {
 }
 
 .content {
+
     position: relative;
     padding: 40px 60px;
     flex: 6;
 }
+
 
 /* menu btn styles */
 #menu_btn span {
@@ -233,6 +235,8 @@ a.title:hover {
 .perms a:hover {
     color: #73a694;
 }
+
+
 
 
 @keyframes menu_hide {
