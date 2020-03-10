@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %}
+    Регистрация
+{% endblock %}
+{% block body %}
+    <form method="POST">
+        {% csrf_token %}
+        {% if signup %}
+            {{ signup }}
+            <input type="submit" value="Зарегистрироваться" class="btn">
+        {% endif %}
+    </form>
+{% endblock %}

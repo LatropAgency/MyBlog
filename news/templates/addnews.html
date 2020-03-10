@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %}
+    Добавить новость
+{% endblock %}
+{% block body %}
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% if add_news and perms.news.add_news %}
+            {{ add_news }}
+            <input class="btn" type="submit" value="Запостить">
+        {% endif %}
+    </form>
+{% endblock %}

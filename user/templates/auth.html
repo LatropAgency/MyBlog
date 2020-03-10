@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    Авторизация
+{% endblock %}
+
+{% block body %}
+    <form method="POST">
+        {% csrf_token %}
+        {% if signin %}
+            {{ signin }}
+            <input type="submit" value="Войти" class="btn">{% else %}
+        {% endif %}
+    </form>
+    <a class="link" href="{% url 'user:forget' %}">Забыли пароль?</a>
+{% endblock %}

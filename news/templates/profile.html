@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}
+    Профиль
+{% endblock %}
+{% block body %}
+    {% if user.is_authenticated %}
+        Логин: {{ user.username }}<br>
+        E-mail: {{ user.email }}<br>
+        Дата регистрации: {{ user.date_joined }}<br>
+        {% for i in group %}
+            {{ i.name }}
+        {% endfor %}
+        {% if perms.news.add_news  and add_news %}
+            <a class="btn" href="{% url 'news:addNews' %}">Добавить новость</a>
+        {% endif %}
+        <form method="POST">
+            {% csrf_token %}
+            {{ info }}
+            <input type="submit" value="Сохранить">
+        </form>
+        <form method="POST">
+            {% csrf_token %}
+            {{ editPassword }}
+            <input type="submit" value="Изменить" class="btn">
+        </form>
+    {% else %}
+        Авторизируйтесь
+    {% endif %}
+{% endblock %}

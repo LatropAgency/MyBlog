@@ -1,0 +1,59 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/media.css' %}">
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+<div class="wrap">
+    <div id="menu">
+        {% if not user.is_authenticated %}
+            <a href="{% url 'user:auth' %}">Авторизация</a>
+            <a href="{% url 'user:reg' %}">Регистрация</a>
+        {% else %}
+            <span class="username">{{ user.username }}</span>
+            <a class="profile" href="{% url 'news:profile' %}">Профиль</a>
+            <a class="logout" href="{% url 'user:logout' %}">Выйти</a>
+            <a class="dev" href="https://github.com/LatropAgency">Разработчик</a>
+            <span class="email">vovakolesnkovich@gmail.com</span>
+            <span class="phone">+375297441171</span>
+        {% endif %}
+    </div>
+    <div class="content">
+        <div id="menu_btn">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <header>
+            <div class="header_topline">
+                <a class="my_blog" href="{% url 'news:index' %}">My blog</a>
+                <div class="soc">
+                    <a href="#"><img src="/static/img/icons/twitter.svg" alt="twitter"></a>
+                    <a href="#"><img src="/static/img/icons/telegram.svg" alt="telegram"></a>
+                    <a href="https://vk.com/csdmmaxplay"><img src="/static/img/icons/vk.svg" alt="vk"></a>
+                    <a href="https://www.instagram.com/vovakolesnikovich/"><img src="/static/img/icons/instagram.svg" alt="instagram"></a>
+                </div>
+            </div>
+        </header>
+        <div class="notifications">
+            {% block notifications %}
+                {% if messages %}
+                    <ul class="messages">
+                        {% for message in messages %}
+                            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endblock %}
+        </div>
+        {% block body %}
+        {% endblock %}
+    </div>
+</div>
+<script src="/static/js/common.js"></script>
+</body>
+</html>

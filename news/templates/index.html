@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %}
+    Главная
+{% endblock %}
+{% block body %}
+    <div class="news">
+        {% for news_item in news reversed %}
+            <div class="news_item">
+                <img src="http://127.0.0.1:8000/media/{{ news_item.image }}">
+                <div class="info_item">
+                    <div class="info">
+                        <div class="date">{{ news_item.date }}</div>
+                        <div class="views">{{ news_item.views }}</div>
+                    </div>
+                    <a href="{% url 'news:details' news_item.id %}" class="title">{{ news_item.title }}</a>
+                    <p class="prev_text">{{ news_item.prev_text }}</p>
+                    <a class="btn" href="{% url 'news:details' news_item.id %}">Читать</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="navigation">
+        {% if back %}
+            <a class="btn" href="{% url 'news:page' back %}">Назад</a>
+        {% endif %}
+        {% if forward %}
+            <a class="btn" href="{% url 'news:page' forward %}">Далее</a>
+        {% endif %}
+    </div>
+{% endblock %}

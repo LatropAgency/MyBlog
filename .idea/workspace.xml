@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="cafbca74-c58d-42e9-8c02-1c40e04ef1ca" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DjangoConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)">
+    <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectId" id="1YPHssuoGIbNnWaTEG7oj3HpWlg" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+  </component>
+  <component name="RunManager">
+    <configuration name="FinalProject" type="Python.DjangoServer" factoryName="Django server">
+      <module name="FinalProject" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="C:\Users\csdmm\PycharmProjects\untitled1\venv\Scripts\python.exe" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <option name="port" value="8000" />
+      <option name="host" value="" />
+      <option name="additionalOptions" value="" />
+      <option name="browserUrl" value="" />
+      <option name="runTestServer" value="false" />
+      <option name="runNoReload" value="false" />
+      <option name="useCustomRunCommand" value="false" />
+      <option name="customRunCommand" value="" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="cafbca74-c58d-42e9-8c02-1c40e04ef1ca" name="Default Changelist" comment="" />
+      <created>1582837519607</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1582837519607</updated>
+      <workItem from="1582837528631" duration="4649000" />
+      <workItem from="1582872947534" duration="1978000" />
+      <workItem from="1582959791499" duration="5356000" />
+      <workItem from="1583132582659" duration="22615000" />
+      <workItem from="1583187646225" duration="2316000" />
+      <workItem from="1583222634524" duration="5788000" />
+      <workItem from="1583232933282" duration="31011000" />
+      <workItem from="1583357000627" duration="37183000" />
+      <workItem from="1583446648272" duration="5757000" />
+      <workItem from="1583480868339" duration="2015000" />
+      <workItem from="1583494656334" duration="287000" />
+      <workItem from="1583494990536" duration="2723000" />
+      <workItem from="1583528392595" duration="6576000" />
+      <workItem from="1583823226135" duration="21661000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="402" y="0" key="#FinalProject" timestamp="1583171051847">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="402" y="0" key="#FinalProject/0.0.1366.728@0.0.1366.728" timestamp="1583171051847" />
+    <state x="137" y="7" width="1092" height="721" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1583446817470">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="137" y="7" width="1092" height="721" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1366.728@0.0.1366.728" timestamp="1583446817470" />
+    <state x="402" y="0" key="#models" timestamp="1583446062674">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="402" y="0" key="#models/0.0.1366.728@0.0.1366.728" timestamp="1583446062674" />
+    <state x="184" y="7" key="SettingsEditor" timestamp="1583446517987">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="184" y="7" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1583446517987" />
+    <state x="379" y="189" key="com.intellij.ide.util.TipDialog" timestamp="1583823483350">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="379" y="189" key="com.intellij.ide.util.TipDialog/0.0.1366.728@0.0.1366.728" timestamp="1583823483350" />
+  </component>
+</project>

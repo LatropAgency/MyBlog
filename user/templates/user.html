@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block title %}
+    Пользователь {{ usr.username }}
+{% endblock %}
+{% block body %}
+    {% if user.is_authenticated and usr %}
+        Id: {{ usr.id }}<br>
+        Login: {{ usr.username }}<br>
+        Дата регистрации: {{ user.date_joined }}<br>
+        Group:
+        {% if usr.is_superuser %}
+            Админ
+        {% endif %}
+        {% for i in group %}
+            {{ i }}
+        {% endfor %}<br>
+        <div class="perms">
+            {% if not usr.id == user.id  and not usr.is_superuser and not usr.delete_user %}
+                {% if perms.news.delete_comments %}
+                    <a href="{% url 'news:mute' usr.id %}">Замутить пользователя</a><br>
+                    <a href="{% url 'news:unmute' usr.id %}">Размутить пользователя</a><br>
+                {% endif %}
+            {% endif %}
+            {% if user.is_superuser and user.id != usr.id %}
+                <a href="{% url 'news:add_editor' usr.id %}">Сделать редактором</a><br>
+                <a href="{% url 'news:del_editor' usr.id %}">Забрать права редактора</a><br>
+                <a href="{% url 'news:add_moderator' usr.id %}">Сделать модератором</a><br>
+                <a href="{% url 'news:del_moderator' usr.id %}">Забрать права модератора</a><br>
+            {% endif %}
+        </div>
+    {% else %}
+        Авторизируйтесь
+    {% endif %}
+{% endblock %}
