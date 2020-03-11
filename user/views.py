@@ -12,8 +12,9 @@ import hashlib
 from django.shortcuts import get_object_or_404, get_list_or_404
 import datetime
 from django.contrib import messages
-import os
 import sendgrid
+import os
+from sendgrid.helpers.mail import *
 
 def print_messages(request, errors):
     for field in errors:
@@ -122,28 +123,12 @@ def forget(request):
             email = EmailMessage('Забыли пароль', f'Сбросить пароль: http://127.0.0.1:8000/user/reset/{hash}',
                                  to=[user.email])
             sg = sendgrid.SendGridAPIClient(apikey=os.environ.get('SENDGRID_API_KEY'))
-            data = {
-                "personalizations": [
-                    {
-                        "to": [
-                            {
-                                "email": "csdmmaxplay@gmail.com"
-                            }
-                        ],
-                        "subject": "Hello World from the SendGrid Python Library!"
-                    }
-                ],
-                "from": {
-                    "email": "csdmmaxplay@gmail.com"
-                },
-                "content": [
-                    {
-                        "type": "text/plain",
-                        "value": "Hello, Email!"
-                    }
-                ]
-            }
-            response = sg.client.mail.send.post(request_body=data)
+            from_email = Email("csdmmaxplay@gmail.com")
+            subject = "Hello World from the SendGrid Python Library!"
+            to_email = Email("csdmmax@gmail.com")
+            content = Content("text/plain", "Hello, Email!")
+            mail = Mail(from_email, subject, to_email, content)
+            response = sg.client.mail.send.post(request_body=mail.get())
             print(response.status_code)
             print(response.body)
             print(response.headers)
