@@ -135,9 +135,9 @@ def forget(request):
                 print(response.body)
                 print(response.headers)
             except Exception as e:
-                print(e.message)
+                messages.error(request, e.message)
             #email.send()
-            messages.info(request, e.message)
+            messages.info(request, 'Проверьте почту')
         else:
             print_messages(request, user_form)
     else:
