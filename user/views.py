@@ -114,7 +114,7 @@ def forget(request):
     if request.method == "POST":
         user_form = forgetForm(request.POST)
         if user_form.is_valid():
-            sg = sendgrid.SendGridAPIClient(apikey=os.environ.get('SENDGRID_API_KEY'))
+            sg = sendgrid.SendGridAPIClient()
             data = {
                 "personalizations": [
                     {
