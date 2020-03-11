@@ -7,7 +7,7 @@
 {% block body %}
     {% if news_item %}
         <div class="news_item">
-        <img src="http://127.0.0.1:8000/media/{{ news_item.image }}">
+        <img src="myblogitechart.herokuapp.com/media/{{ news_item.image }}">
         <div class="info_item">
         <div class="info">
             <div class="date">{{ news_item.date }}</div>
@@ -36,7 +36,7 @@
             <div class="perms">
                 <span class="date">{{ comment_item.date }}</span>
                 {% if perms.news.delete_comments and not comment_item.user.is_superuser or user.is_superuser %}
-                    <a href="http://127.0.0.1:8000/{{ news_item.id }}/del_comment/{{ comment_item.id }}">Удалить
+                    <a href="{% url  'news:del_comment' news_item.id comment_item.id%}">Удалить
                         комментарий</a>
                     {% if not user.id == comment_item.user_id %}
                         <a href="{% url 'news:mute' comment_item.user_id %}">Замутить</a>

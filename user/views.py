@@ -114,32 +114,6 @@ def forget(request):
     if request.method == "POST":
         user_form = forgetForm(request.POST)
         if user_form.is_valid():
-            sg = sendgrid.SendGridAPIClient()
-            data = {
-                "personalizations": [
-                    {
-                        "to": [
-                            {
-                                "email": "csdmmaxplay@gmail.com"
-                            }
-                        ],
-                        "subject": "Hello World from the SendGrid Python Library!"
-                    }
-                ],
-                "from": {
-                    "email": "csdmmaxplay@gmail.com"
-                },
-                "content": [
-                    {
-                        "type": "text/plain",
-                        "value": "Hello, Email!"
-                    }
-                ]
-            }
-            response = sg.client.mail.send.post(request_body=data)
-            print(response.status_code)
-            print(response.body)
-            print(response.headers)
             user_form = user_form.cleaned_data
             user = get_object_or_404(User, username=user_form['username'])
             hash = hashlib.sha1(user.username.encode('utf-8')).hexdigest()
