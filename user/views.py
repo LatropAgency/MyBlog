@@ -12,9 +12,10 @@ import hashlib
 from django.shortcuts import get_object_or_404, get_list_or_404
 import datetime
 from django.contrib import messages
-import sendgrid
 import os
-from sendgrid.helpers.mail import *
+from sendgrid import SendGridAPIClient
+from sendgrid.helpers.mail import Mail
+
 
 def print_messages(request, errors):
     for field in errors:
@@ -122,18 +123,21 @@ def forget(request):
             hash = hashlib.sha1(user.username.encode('utf-8')).hexdigest()
             email = EmailMessage('Забыли пароль', f'Сбросить пароль: http://127.0.0.1:8000/user/reset/{hash}',
                                  to=[user.email])
-            sg = sendgrid.SendGridAPIClient(apikey=os.environ.get('SENDGRID_API_KEY'))
-            from_email = Email("csdmmaxplay@gmail.com")
-            subject = "Hello World from the SendGrid Python Library!"
-            to_email = Email("csdmmax@gmail.com")
-            content = Content("text/plain", "Hello, Email!")
-            mail = Mail(from_email, subject, to_email, content)
-            response = sg.client.mail.send.post(request_body=mail.get())
-            print(response.status_code)
-            print(response.body)
-            print(response.headers)
+            message = Mail(
+                from_email='csdmmaxplay@gmail.com',
+                to_emails='csdmmaxplay@gmail.com',
+                subject='Sending with Twilio SendGrid is Fun',
+                html_content='<strong>and easy to do anywhere, even with Python</strong>')
+            try:
+                sg = SendGridAPIClient('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')
+                response = sg.send(message)
+                print(response.status_code)
+                print(response.body)
+                print(response.headers)
+                messages.info(request, 'Проверьте почту')
+            except Exception as e:
+                messages.error(request, e.message)
             #email.send()
-            messages.info(request, 'Проверьте почту')
         else:
             print_messages(request, user_form)
     else:
