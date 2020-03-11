@@ -17,10 +17,10 @@
             <span class="username">{{ user.username }}</span>
             <a class="profile" href="{% url 'news:profile' %}">Профиль</a>
             <a class="logout" href="{% url 'user:logout' %}">Выйти</a>
+        {% endif %}
             <a class="dev" href="https://github.com/LatropAgency">Разработчик</a>
             <span class="email">vovakolesnkovich@gmail.com</span>
             <span class="phone">+375297441171</span>
-        {% endif %}
     </div>
     <div class="content">
         <div id="menu_btn">

@@ -10,7 +10,8 @@ input[type=submit] {
     border: none;
 }
 
-input {
+input
+{
     border: 1px solid black;
     outline: none;
     padding: 5px 10px;
@@ -38,6 +39,11 @@ a {
 }
 
 .link {
+    color: #777;
+    transition: 0.3s;
+}
+
+.link:hover {
     color: #73a694;
 }
 
@@ -235,8 +241,6 @@ a.title:hover {
 .perms a:hover {
     color: #73a694;
 }
-
-
 
 
 @keyframes menu_hide {
