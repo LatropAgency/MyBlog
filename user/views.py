@@ -12,7 +12,8 @@ import hashlib
 from django.shortcuts import get_object_or_404, get_list_or_404
 import datetime
 from django.contrib import messages
-
+import sendgrid
+import os
 
 def print_messages(request,errors):
     for field in errors:
@@ -113,6 +114,32 @@ def forget(request):
     if request.method == "POST":
         user_form = forgetForm(request.POST)
         if user_form.is_valid():
+            sg = sendgrid.SendGridAPIClient(apikey=os.environ.get('SENDGRID_API_KEY'))
+            data = {
+                "personalizations": [
+                    {
+                        "to": [
+                            {
+                                "email": "test@example.com"
+                            }
+                        ],
+                        "subject": "Hello World from the SendGrid Python Library!"
+                    }
+                ],
+                "from": {
+                    "email": "test@example.com"
+                },
+                "content": [
+                    {
+                        "type": "text/plain",
+                        "value": "Hello, Email!"
+                    }
+                ]
+            }
+            response = sg.client.mail.send.post(request_body=data)
+            print(response.status_code)
+            print(response.body)
+            print(response.headers)
             user_form = user_form.cleaned_data
             user = get_object_or_404(User, username=user_form['username'])
             hash = hashlib.sha1(user.username.encode('utf-8')).hexdigest()
