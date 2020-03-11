@@ -120,14 +120,14 @@ def forget(request):
                     {
                         "to": [
                             {
-                                "email": "test@example.com"
+                                "email": "csdmmaxplay@gmail.com"
                             }
                         ],
                         "subject": "Hello World from the SendGrid Python Library!"
                     }
                 ],
                 "from": {
-                    "email": "test@example.com"
+                    "email": "csdmmaxplay@gmail.com"
                 },
                 "content": [
                     {
