@@ -4,6 +4,7 @@
     <list default="true" id="cafbca74-c58d-42e9-8c02-1c40e04ef1ca" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FinalProject/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/FinalProject/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FinalProject/wsgi.py" beforeDir="false" afterPath="$PROJECT_DIR$/FinalProject/wsgi.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -86,7 +87,7 @@
       <workItem from="1583494656334" duration="287000" />
       <workItem from="1583494990536" duration="2723000" />
       <workItem from="1583528392595" duration="6576000" />
-      <workItem from="1583823226135" duration="30692000" />
+      <workItem from="1583823226135" duration="31698000" />
     </task>
     <servers />
   </component>
@@ -106,10 +107,10 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="402" y="0" key="#models/0.0.1366.728@0.0.1366.728" timestamp="1583446062674" />
-    <state x="184" y="7" key="SettingsEditor" timestamp="1583446517987">
+    <state x="184" y="7" key="SettingsEditor" timestamp="1583915304201">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="184" y="7" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1583446517987" />
+    <state x="184" y="7" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1583915304201" />
     <state x="379" y="189" key="com.intellij.ide.util.TipDialog" timestamp="1583823483350">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
