@@ -13,9 +13,7 @@ from django.shortcuts import get_object_or_404, get_list_or_404
 import datetime
 from django.contrib import messages
 import os
-from sendgrid import SendGridAPIClient
-from sendgrid.helpers.mail import Mail
-
+import sendgrid
 
 def print_messages(request, errors):
     for field in errors:
@@ -123,21 +121,34 @@ def forget(request):
             hash = hashlib.sha1(user.username.encode('utf-8')).hexdigest()
             email = EmailMessage('Забыли пароль', f'Сбросить пароль: http://127.0.0.1:8000/user/reset/{hash}',
                                  to=[user.email])
-            message = Mail(
-                from_email='csdmmaxplay@gmail.com',
-                to_emails='csdmmaxplay@gmail.com',
-                subject='Sending with Twilio SendGrid is Fun',
-                html_content='<strong>and easy to do anywhere, even with Python</strong>')
-            try:
-                sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
-                response = sg.send(message)
-                print(response.status_code)
-                print(response.body)
-                print(response.headers)
-                messages.info(request, 'Проверьте почту')
-            except Exception as e:
-                messages.error(request, e.message)
+            sg = sendgrid.SendGridAPIClient(apikey=os.environ.get('SENDGRID_API_KEY'))
+            data = {
+                "personalizations": [
+                    {
+                        "to": [
+                            {
+                                "email": "csdmmaxplay@gmail.com"
+                            }
+                        ],
+                        "subject": "Hello World from the SendGrid Python Library!"
+                    }
+                ],
+                "from": {
+                    "email": "csdmmaxplay@gmail.com"
+                },
+                "content": [
+                    {
+                        "type": "text/plain",
+                        "value": "Hello, Email!"
+                    }
+                ]
+            }
+            response = sg.client.mail.send.post(request_body=data)
+            print(response.status_code)
+            print(response.body)
+            print(response.headers)
             #email.send()
+            messages.info(request, 'Проверьте почту')
         else:
             print_messages(request, user_form)
     else:
