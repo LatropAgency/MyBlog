@@ -16,20 +16,20 @@ count = 5
 def index(request):
     page_num = 0
     query = list(reversed(get_list_or_404(News)))
-    lst = reversed(query[page_num*count: (page_num+1)*count:1])
-    context = {'news':lst}
-    if not (page_num+1) * count >= len(query):
+    lst = reversed(query[page_num * count: (page_num + 1) * count:1])
+    context = {'news': lst}
+    if not (page_num + 1) * count >= len(query):
         context['forward'] = page_num + 1
     return render(request, 'index.html', context)
 
 
-def page(request,page_num):
+def page(request, page_num):
     query = list(reversed(get_list_or_404(News)))
-    lst = reversed(query[page_num*count: (page_num+1)*count:1])
-    context = {'news':lst}
-    if not page_num-1 == -1:
-        context['back'] = str(page_num-1)
-    if not (page_num+1) * count >= len(query):
+    lst = reversed(query[page_num * count: (page_num + 1) * count:1])
+    context = {'news': lst}
+    if not page_num - 1 == -1:
+        context['back'] = str(page_num - 1)
+    if not (page_num + 1) * count >= len(query):
         context['forward'] = page_num + 1
     return render(request, 'index.html', context)
 
@@ -117,7 +117,7 @@ def add_editor(request, user_id):
         g = Group.objects.get(name="Редактор")
         g.user_set.add(u)
         messages.info(request, "Пользователю добавлены возможности редактора")
-        return render(request,'user.html')
+        return render(request, 'user.html')
     else:
         return redirect('/error/')
 
@@ -129,7 +129,7 @@ def add_moderator(request, user_id):
         g = Group.objects.get(name="Модератор")
         g.user_set.add(u)
         messages.info(request, "Пользователю добавлены возможности модератора")
-        return render(request,'user.html')
+        return render(request, 'user.html')
     else:
         return redirect('/error/')
 
@@ -141,7 +141,7 @@ def del_editor(request, user_id):
         g = Group.objects.get(name="Редактор")
         g.user_set.remove(u)
         messages.info(request, "Права редактора удалены")
-        return render(request,'user.html')
+        return render(request, 'user.html')
     else:
         return redirect('/error/')
 
@@ -153,7 +153,7 @@ def del_moderator(request, user_id):
         g = Group.objects.get(name="Модератор")
         g.user_set.remove(u)
         messages.info(request, "Права модератора удалены")
-        return render(request,'user.html')
+        return render(request, 'user.html')
     else:
         return redirect('/error/')
 
@@ -162,10 +162,11 @@ def del_moderator(request, user_id):
 def addNews(request):
     context = {}
     if request.method == "POST":
-        add_news = addNewsForm(request.POST,request.FILES)
+        add_news = addNewsForm(request.POST, request.FILES)
         if add_news.is_valid():
             add_news = add_news.cleaned_data
-            ns = News(title=add_news['title'], text=add_news['text'], author_id=request.user.id,image=add_news['image'], prev_text=add_news['prev_text'])
+            ns = News(title=add_news['title'], text=add_news['text'], author_id=request.user.id,
+                      image=add_news['image'], prev_text=add_news['prev_text'])
             ns.save()
             messages.info(request, "Новость опубликована")
     else:
