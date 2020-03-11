@@ -116,11 +116,13 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'csdmmaxplay@gmail.com'
-EMAIL_HOST_PASSWORD = 'csdmmaxplayincsgo'
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_HOST_USER = 'apikey'
+EMAIL_HOST_PASSWORD = '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'
 EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+DEFAULT_FROM_EMAIL = 'your-email@example.com' # this is the sendgrid email
 
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 MEDIA_URL = '/media/'
