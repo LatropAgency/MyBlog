@@ -129,15 +129,15 @@ def forget(request):
                 subject='Sending with Twilio SendGrid is Fun',
                 html_content='<strong>and easy to do anywhere, even with Python</strong>')
             try:
-                sg = SendGridAPIClient('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')
+                sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
                 response = sg.send(message)
                 print(response.status_code)
                 print(response.body)
                 print(response.headers)
+                messages.info(request, 'Проверьте почту')
             except Exception as e:
                 messages.error(request, e.message)
             #email.send()
-            messages.info(request, 'Проверьте почту')
         else:
             print_messages(request, user_form)
     else:
