@@ -6,9 +6,18 @@
         width: 100%;
     }
 }
-@media only screen and (max-device-width: 768px) {
+@media only screen and (max-device-width: 600px) {
+    .content {
+        padding:40px  0;
+    }
+    #menu > * {
+        margin: 10px;
+    }
 }
-@media only screen and (max-device-width: 425px) {
+@media only screen and (max-device-width: 500px) {
+    #menu {
+        padding: 0;
+    }
     .wrap {
         flex-direction: column;
     }
