@@ -12,7 +12,6 @@ from django.contrib import messages
 
 count = 5
 
-
 def index(request):
     page_num = 0
     query = list(reversed(get_list_or_404(News)))
@@ -53,7 +52,7 @@ def details(request, news_id):
     return render(request, 'details.html', context)
 
 
-@login_required(login_url='/auth/auth/')
+@login_required(login_url='user:auth')
 def profile(request):
     context = {"group": request.user.groups.all(), 'info': UserInfoForm(), 'editPassword': editPasswordForm()}
     user = get_object_or_404(User, pk=request.user.id)
@@ -76,7 +75,8 @@ def profile(request):
     return render(request, 'profile.html', context)
 
 
-@permission_required('news.delete_comments', login_url='/error/')
+@login_required(login_url='user:auth')
+@permission_required('news.delete_comments', login_url='news:error')
 def del_comment(request, news_id, comment_id):
     if request.user.has_perm('news.delete_comments'):
         Comments.objects.get(id=comment_id).delete()
@@ -86,7 +86,8 @@ def del_comment(request, news_id, comment_id):
         return redirect(f'/{news_id}')
 
 
-@permission_required('auth.delete_group', login_url='/error/')
+@login_required(login_url='user:auth')
+@permission_required('auth.delete_group', login_url='news:error')
 def mute(request, user_id):
     u = get_object_or_404(User, pk=user_id)
     if u.has_perm('news.add_comments'):
@@ -98,7 +99,7 @@ def mute(request, user_id):
         return redirect('/')
 
 
-@permission_required('auth.add_group', login_url='/error/')
+@permission_required('auth.add_group', login_url='news:error')
 def unmute(request, user_id):
     u = get_object_or_404(User, pk=user_id)
     if not u.has_perm('news.add_comments'):
@@ -110,7 +111,7 @@ def unmute(request, user_id):
         return redirect('/')
 
 
-@login_required(login_url='/auth/auth')
+@login_required(login_url='user:auth')
 def add_editor(request, user_id):
     if request.user.is_superuser:
         u = get_object_or_404(User, pk=user_id)
@@ -119,10 +120,10 @@ def add_editor(request, user_id):
         messages.info(request, "Пользователю добавлены возможности редактора")
         return render(request, 'user.html')
     else:
-        return redirect('/error/')
+        return redirect('news:error')
 
 
-@login_required(login_url='/auth/auth/')
+@login_required(login_url='user:auth')
 def add_moderator(request, user_id):
     if request.user.is_superuser:
         u = get_object_or_404(User, pk=user_id)
@@ -131,10 +132,10 @@ def add_moderator(request, user_id):
         messages.info(request, "Пользователю добавлены возможности модератора")
         return render(request, 'user.html')
     else:
-        return redirect('/error/')
+        return redirect('news:error')
 
 
-@login_required(login_url='/auth/auth/')
+@login_required(login_url='user:auth')
 def del_editor(request, user_id):
     if request.user.is_superuser:
         u = get_object_or_404(User, pk=user_id)
@@ -143,10 +144,10 @@ def del_editor(request, user_id):
         messages.info(request, "Права редактора удалены")
         return render(request, 'user.html')
     else:
-        return redirect('/error/')
+        return redirect('news:error')
 
 
-@login_required(login_url='/auth/auth/')
+@login_required(login_url='user:auth')
 def del_moderator(request, user_id):
     if request.user.is_superuser:
         u = get_object_or_404(User, pk=user_id)
@@ -155,10 +156,10 @@ def del_moderator(request, user_id):
         messages.info(request, "Права модератора удалены")
         return render(request, 'user.html')
     else:
-        return redirect('/error/')
+        return redirect('news:error')
 
 
-@permission_required('news.add_news', login_url='/error/')
+@permission_required('news.add_news', login_url='news:error')
 def addNews(request):
     context = {}
     if request.method == "POST":
@@ -174,7 +175,7 @@ def addNews(request):
     return render(request, 'addnews.html', context)
 
 
-@login_required(login_url='/auth/auth/')
+@login_required(login_url='user:auth')
 def user_profile(request, user_id):
     usr = get_object_or_404(User, pk=user_id)
     group = usr.groups.all()

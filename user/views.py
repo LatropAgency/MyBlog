@@ -2,10 +2,10 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.views.generic.base import View
-from django.conf import settings
+from sendgrid import SendGridAPIClient, Mail
 from .forms import authForm, regForm, forgetForm, resetForm
 from django.contrib.auth.models import Group
-from django.core.mail import EmailMessage,send_mail
+from django.core.mail import EmailMessage, send_mail
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import permission_required
 import hashlib
@@ -105,10 +105,6 @@ def log_out(request):
     return redirect('/')
 
 
-def error(request):
-    return render(request, 'error.html', {})
-
-
 def forget(request):
     if request.method == "POST":
         user_form = forgetForm(request.POST)
@@ -116,14 +112,9 @@ def forget(request):
             user_form = user_form.cleaned_data
             user = get_object_or_404(User, username=user_form['username'])
             hash = hashlib.sha1(user.username.encode('utf-8')).hexdigest()
-            send_mail('This is the title of the email',
-                      'This is the message you want to send',
-                      settings.DEFAULT_FROM_EMAIL,
-                      [
-                          settings.EMAIL_HOST_USER,  # add more emails to this list of you want to
-                      ]
-                      )
-
+            email = EmailMessage('Забыли пароль', f'Сбросить пароль: http://127.0.0.1:8000/user/reset/{hash}',
+                                 to=[user.email])
+            email.send()
             messages.info(request, 'Проверьте почту')
         else:
             print_messages(request,user_form)

@@ -4,6 +4,12 @@
     <list default="true" id="cafbca74-c58d-42e9-8c02-1c40e04ef1ca" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FinalProject/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/FinalProject/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/news/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/news/templates/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/news/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/news/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/main.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/css/media.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/media.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/user/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/user/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -46,8 +52,9 @@
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
+        <env name="DJANGO_SETTINGS_MODULE" value="FinalProject.settings" />
       </envs>
-      <option name="SDK_HOME" value="C:\Users\csdmm\PycharmProjects\untitled1\venv\Scripts\python.exe" />
+      <option name="SDK_HOME" value="D:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\python.exe" />
       <option name="WORKING_DIRECTORY" value="" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
@@ -87,7 +94,7 @@
       <workItem from="1583494656334" duration="287000" />
       <workItem from="1583494990536" duration="2723000" />
       <workItem from="1583528392595" duration="6576000" />
-      <workItem from="1583823226135" duration="48957000" />
+      <workItem from="1583823226135" duration="59703000" />
     </task>
     <servers />
   </component>
@@ -95,10 +102,10 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="402" y="0" key="#FinalProject" timestamp="1583171051847">
+    <state x="402" y="0" key="#FinalProject" timestamp="1584001253990">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="402" y="0" key="#FinalProject/0.0.1366.728@0.0.1366.728" timestamp="1583171051847" />
+    <state x="402" y="0" key="#FinalProject/0.0.1366.728@0.0.1366.728" timestamp="1584001253990" />
     <state x="137" y="7" width="1092" height="721" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1583446817470">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -107,10 +114,26 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="402" y="0" key="#models/0.0.1366.728@0.0.1366.728" timestamp="1583446062674" />
-    <state x="184" y="7" key="SettingsEditor" timestamp="1583915304201">
+    <state width="1323" height="179" key="GridCell.Tab.0.bottom" timestamp="1584001312702">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="184" y="7" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1583915304201" />
+    <state width="1323" height="179" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1584001312702" />
+    <state width="1323" height="179" key="GridCell.Tab.0.center" timestamp="1584001312700">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1323" height="179" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1584001312700" />
+    <state width="1323" height="179" key="GridCell.Tab.0.left" timestamp="1584001312700">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1323" height="179" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1584001312700" />
+    <state width="1323" height="179" key="GridCell.Tab.0.right" timestamp="1584001312701">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1323" height="179" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1584001312701" />
+    <state x="184" y="7" key="SettingsEditor" timestamp="1583996983041">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="184" y="7" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1583996983041" />
     <state x="379" y="189" key="com.intellij.ide.util.TipDialog" timestamp="1583823483350">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
