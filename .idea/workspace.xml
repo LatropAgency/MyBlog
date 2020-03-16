@@ -3,8 +3,32 @@
   <component name="ChangeListManager">
     <list default="true" id="cafbca74-c58d-42e9-8c02-1c40e04ef1ca" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FinalProject/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/FinalProject/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/news/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/news/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/news/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/news/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/news/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/news/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/news/templates/addnews.html" beforeDir="false" afterPath="$PROJECT_DIR$/news/templates/addnews.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/news/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/news/templates/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/news/templates/details.html" beforeDir="false" afterPath="$PROJECT_DIR$/news/templates/details.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/news/templates/error.html" beforeDir="false" afterPath="$PROJECT_DIR$/news/templates/error.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/news/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/news/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/news/templates/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/news/templates/profile.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/news/templates/user.html" beforeDir="false" afterPath="$PROJECT_DIR$/news/templates/user.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/news/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/news/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/news/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/news/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/main.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/css/media.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/media.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/common.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/common.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user/templates/activate.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/user/templates/auth.html" beforeDir="false" afterPath="$PROJECT_DIR$/user/templates/auth.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user/templates/error.html" beforeDir="false" afterPath="$PROJECT_DIR$/user/templates/error.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user/templates/forget.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/user/templates/reg.html" beforeDir="false" afterPath="$PROJECT_DIR$/user/templates/reg.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user/templates/reset.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/user/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/user/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/user/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -13,6 +37,9 @@
   </component>
   <component name="DjangoConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)">
     <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
+  </component>
+  <component name="FavoritesManager">
+    <favorites_list name="latropblog" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -88,7 +115,12 @@
       <workItem from="1583494656334" duration="287000" />
       <workItem from="1583494990536" duration="2723000" />
       <workItem from="1583528392595" duration="6576000" />
-      <workItem from="1583823226135" duration="60693000" />
+      <workItem from="1583823226135" duration="64956000" />
+      <workItem from="1584023670422" duration="4141000" />
+      <workItem from="1584088846115" duration="6682000" />
+      <workItem from="1584111459469" duration="12502000" />
+      <workItem from="1584169334608" duration="11233000" />
+      <workItem from="1584209743597" duration="41115000" />
     </task>
     <servers />
   </component>
@@ -108,29 +140,33 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="402" y="0" key="#models/0.0.1366.728@0.0.1366.728" timestamp="1583446062674" />
-    <state width="1323" height="179" key="GridCell.Tab.0.bottom" timestamp="1584001312702">
+    <state width="1323" height="179" key="GridCell.Tab.0.bottom" timestamp="1584015183996">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="179" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1584001312702" />
-    <state width="1323" height="179" key="GridCell.Tab.0.center" timestamp="1584001312700">
+    <state width="1323" height="179" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1584015183996" />
+    <state width="1323" height="179" key="GridCell.Tab.0.center" timestamp="1584015183995">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="179" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1584001312700" />
-    <state width="1323" height="179" key="GridCell.Tab.0.left" timestamp="1584001312700">
+    <state width="1323" height="179" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1584015183995" />
+    <state width="1323" height="179" key="GridCell.Tab.0.left" timestamp="1584015183995">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="179" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1584001312700" />
-    <state width="1323" height="179" key="GridCell.Tab.0.right" timestamp="1584001312701">
+    <state width="1323" height="179" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1584015183995" />
+    <state width="1323" height="179" key="GridCell.Tab.0.right" timestamp="1584015183996">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="179" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1584001312701" />
+    <state width="1323" height="179" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1584015183995" />
     <state x="184" y="7" key="SettingsEditor" timestamp="1583996983041">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="184" y="7" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1583996983041" />
-    <state x="379" y="189" key="com.intellij.ide.util.TipDialog" timestamp="1583823483350">
+    <state x="379" y="189" key="com.intellij.ide.util.TipDialog" timestamp="1584210115739">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="379" y="189" key="com.intellij.ide.util.TipDialog/0.0.1366.728@0.0.1366.728" timestamp="1583823483350" />
+    <state x="379" y="189" key="com.intellij.ide.util.TipDialog/0.0.1366.728@0.0.1366.728" timestamp="1584210115739" />
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1584385942341">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1584385942341" />
   </component>
 </project>

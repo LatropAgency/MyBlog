@@ -5,18 +5,34 @@
 {% block body %}
     <div class="news">
         {% for news_item in news reversed %}
-            <div class="news_item">
-                <img src="media/{{ news_item.image }}">
-                <div class="info_item">
-                    <div class="info">
-                        <div class="date">{{ news_item.date }}</div>
-                        <div class="views">{{ news_item.views }}</div>
+            {% if perms.news.view_hidden_news or not news_item.hidden %}
+                <div class="news_item {% if news_item.hidden %}hidden{% endif %}">
+                    <div class="img_container">
+                        <img src="http://127.0.0.1:8000/media/{{ news_item.image }}">
                     </div>
-                    <a href="{% url 'news:details' news_item.id %}" class="title">{{ news_item.title }}</a>
-                    <p class="prev_text">{{ news_item.prev_text }}</p>
-                    <a class="btn" href="{% url 'news:details' news_item.id %}">Читать</a>
+                    <div class="info_item">
+                        <div class="info">
+                            <div class="date">{{ news_item.date }}</div>
+                            <div class="views">{{ news_item.views }}</div>
+                        </div>
+                        <a href="{% url 'news:details' news_item.id %}" class="title">{{ news_item.title }}</a>
+                        <p class="prev_text">{{ news_item.prev_text }}</p>
+                        <a class="btn" href="{% url 'news:details' news_item.id %}">Читать</a>
+                        {% if perms.news.edit_news %}
+                            <a class="btn" href="{% url 'news:edit_news' news_item.id %}">Редактировать</a>
+                        {% endif %}
+                        {% if perms.news.delete_news %}
+                            <a class="btn" href="{% url 'news:del_news' news_item.id %}">Удалить</a>
+                        {% endif %}
+                        {% if not news_item.hidden  and perms.news.hide_news %}
+                            <a class="btn" href="{% url 'news:hide_news' news_item.id %}">Скрыть</a>
+                        {% endif %}
+                        {% if news_item.hidden  and perms.news.hide_news %}
+                            <a class="btn" href="{% url 'news:hide_news' news_item.id %}">Показать</a>
+                        {% endif %}
+                    </div>
                 </div>
-            </div>
+            {% endif %}
         {% endfor %}
     </div>
     <div class="navigation">

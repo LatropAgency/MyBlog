@@ -10,15 +10,19 @@ input[type=submit] {
     border: none;
 }
 
-input
-{
+input {
     border: 1px solid black;
     outline: none;
     padding: 5px 10px;
     display: block;
 }
 
+input:focus, textarea:focus {
+    border: 1px solid #73a694;
+}
+
 textarea {
+    border: 1px solid black;
     padding: 5px 10px;
     outline: #73a694;
     resize: none;
@@ -79,15 +83,14 @@ a.my_blog:hover {
 }
 
 .content {
-
+    min-height: 600px;
     position: relative;
-    padding: 40px 60px;
+    padding: 40px 60px 80px 60px;
     flex: 6;
 }
 
-
 /* menu btn styles */
-#menu_btn span {
+#menu_btn > span {
     height: 6px;
     width: 40px;
     display: block;
@@ -151,7 +154,24 @@ a.my_blog:hover {
     margin-bottom: 10px;
 }
 
+.hidden {
+    -moz-opacity: 60%;
+    opacity: 60%;
+}
+
+
+.img_container {
+    overflow: hidden;
+}
+
+
+.img_container:hover img {
+    transform: scale(1.1);
+}
+
+
 .news_item img {
+    transition: transform .5s ease;
     width: 100%;
 }
 
@@ -195,7 +215,17 @@ a.title:hover {
 }
 
 .comment {
+    display: flex;
+    margin: 5px 0;
     border-bottom: 1px solid #999;
+}
+
+.comment img {
+    display: block;
+    height: 60px;
+    width: 60px;
+    margin-right: 5px;
+    border: 1px solid #73a694;
 }
 
 .btn {
@@ -260,4 +290,87 @@ a.title:hover {
     100% {
         flex: 2;
     }
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    margin-top: 10px;
+    text-align: center;
+    padding: 20px 0;
+}
+
+.avatar {
+    width: 150px;
+}
+
+#menu .avatar {
+    margin: auto;
+}
+
+#menu .img_container, #menu img {
+    border-radius: 50%;
+}
+
+.avatar img {
+    width: 150px;
+    height: 150px;
+    transition: transform .5s ease;
+}
+
+.avatar input[type=file] {
+    width: 100%;
+}
+
+#notifications {
+    cursor: pointer;
+    color: #fff;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+#notifications li {
+    padding-left: 20px;
+}
+
+.error {
+    background-color: #CC3434;
+}
+
+#notifications .info {
+    background-color: #73a694;
+}
+
+.info_content {
+    background-color: #fff;
+    width: 100%;
+    padding: 10px 40px;
+    align-items: center;
+}
+
+.info_content h1.title {
+    text-align: center;
+}
+
+.profile_info span {
+    display: block;
+}
+
+.avatar, .profile_info {
+    display: inline-block;
+}
+
+.profile_info {
+    padding-left: 10px;
+}
+
+.profile_wrap {
+    display: flex;
+}
+
+.edit_pass {
+    display: block;
+    margin: auto;
 }

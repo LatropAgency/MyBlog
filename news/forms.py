@@ -3,6 +3,19 @@ from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
 
 
+class AvatarForm(forms.Form):
+    image = forms.FileField(label='Аватар')
+
+    def clean_image(self):
+        data = self.cleaned_data
+        print(data['image'])
+        if not (data['image'].name.endswith('.gif') or data['image'].name.endswith('.jpg') or
+                data['image'].name.endswith('.jpeg') or data['image'].name.endswith('.png')):
+            raise ValidationError("Загружать можно только изображения. Поддерживаемые расширения: .gif/.png/.jpg/.jpeg")
+        else:
+            return data['image']
+
+
 class authForm(forms.Form):
     login = forms.CharField(max_length=32, min_length=2, label='Логин')
     password = forms.CharField(widget=forms.PasswordInput, min_length=6, label='Пароль')
@@ -62,6 +75,14 @@ class addNewsForm(forms.Form):
     text = forms.CharField(widget=forms.Textarea, label='Основной текст')
     image = forms.FileField(label='Изображение')
 
+    def clean_image(self):
+        data = self.cleaned_data
+        if not (data['image'].name.endswith('.gif') or data['image'].name.endswith('.jpg') or
+                data['image'].name.endswith('.jpeg') or data['image'].name.endswith('.png')):
+            raise ValidationError("Загружать можно только изображения. Поддерживаемые расширения: .gif/.png/.jpg/.jpeg")
+        else:
+            return data['image']
+
 
 class forgetForm(forms.Form):
     username = forms.CharField(max_length=32, min_length=2, label='Логин')
@@ -77,11 +98,3 @@ class resetForm(forms.Form):
             return data['rep_password']
         else:
             raise ValidationError("Пароли не совпадают")
-
-
-class UserInfoForm(forms.Form):
-    first_name = forms.CharField(max_length=64)
-    last_name = forms.CharField(max_length=64)
-    last_name = forms.CharField(max_length=64)
-    male = forms.ChoiceField(widget=forms.RadioSelect, choices=((1, 'мужчина'), (2, 'женщина')))
-    birthday = forms.DateField(widget=forms.SelectDateWidget)

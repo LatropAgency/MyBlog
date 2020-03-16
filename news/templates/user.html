@@ -3,32 +3,50 @@
     Пользователь {{ usr.username }}
 {% endblock %}
 {% block body %}
-    {% if user.is_authenticated and usr %}
-        Id: {{ usr.id }}<br>
-        Login: {{ usr.username }}<br>
-        Дата регистрации: {{ user.date_joined }}<br>
-        Group:
-        {% if usr.is_superuser %}
-            Админ
-        {% endif %}
-        {% for i in group %}
-            {{ i }}
-        {% endfor %}<br>
-        <div class="perms">
-            {% if not usr.id == user.id  and not usr.is_superuser and not usr.delete_user %}
-                {% if perms.news.delete_comments %}
-                    <a href="{% url 'news:mute' usr.id %}">Замутить пользователя</a><br>
-                    <a href="{% url 'news:unmute' usr.id %}">Размутить пользователя</a><br>
-                {% endif %}
+    <div class="info_content">
+        <h1 class="title">Профиль</h1>
+        <div class="profile_wrap">
+            {% if user.is_authenticated and usr %}
+                <div class="avatar">
+                    <img src="http://127.0.0.1:8000/media/{{ usr.extended.avatar }}" alt="{{ usr.username }}">
+                </div>
+                <div class="profile_info">
+                    <span>Id: {{ usr.id }}</span>
+                    <span>Login: {{ usr.username }}</span>
+                    <span>Дата регистрации: {{ user.date_joined }}</span>
+                    <span>Group:
+                        {% if usr.is_superuser %}
+                            Админ
+                        {% endif %}
+                        {% for i in group %}
+                            {{ i }}
+                        {% endfor %}
+                    </span>
+                </div>
+                </div>
+                <div class="perms">
+                    {% if not usr.id == user.id  and not usr.is_superuser %}
+                        {% if perms.auth.mute and perms.auth.unmute %}
+                            {% if u %}
+                                <a href="{% url 'news:mute' usr.id %}">Замутить пользователя</a><br>
+                            {% else %}
+                                <a href="{% url 'news:unmute' usr.id %}">Размутить пользователя</a><br>
+                            {% endif %}
+                        {% endif %}
+                    {% endif %}
+                    {% if user.is_superuser and user.id != usr.id %}
+                            {% if editor %}
+                                <a href="{% url 'news:del_editor' usr.id %}">Забрать права редактора</a><br>
+                            {% else %}
+                                <a href="{% url 'news:add_editor' usr.id %}">Сделать редактором</a><br>
+                            {% endif %}
+                            {% if moderator %}
+                                <a href="{% url 'news:del_moderator' usr.id %}">Забрать права модератора</a><br>
+                            {% else %}
+                                <a href="{% url 'news:add_moderator' usr.id %}">Сделать модератором</a><br>
+                            {% endif %}
+                    {% endif %}
+                </div>
+                </div>
             {% endif %}
-            {% if user.is_superuser and user.id != usr.id %}
-                <a href="{% url 'news:add_editor' usr.id %}">Сделать редактором</a><br>
-                <a href="{% url 'news:del_editor' usr.id %}">Забрать права редактора</a><br>
-                <a href="{% url 'news:add_moderator' usr.id %}">Сделать модератором</a><br>
-                <a href="{% url 'news:del_moderator' usr.id %}">Забрать права модератора</a><br>
-            {% endif %}
-        </div>
-    {% else %}
-        Авторизируйтесь
-    {% endif %}
 {% endblock %}

@@ -3,11 +3,14 @@
     Регистрация
 {% endblock %}
 {% block body %}
-    <form method="POST">
-        {% csrf_token %}
-        {% if signup %}
-            {{ signup }}
-            <input type="submit" value="Зарегистрироваться" class="btn">
-        {% endif %}
-    </form>
+    <div class="info_content">
+        <h1 class="title">Регистрация</h1>
+        <form method="POST">
+            {% csrf_token %}
+            {% if signup %}
+                {{ signup }}
+                <input type="submit" value="Зарегистрироваться" class="btn">
+            {% endif %}
+        </form>
+    </div>
 {% endblock %}

@@ -21,28 +21,26 @@
         {% if user.is_authenticated and perms.news.add_comments %}
             <form method="POST">
             {% csrf_token %}
-            {% if form %}
-                {{ form }}
-            {% endif %}
+            {{ form }}
             <input type="submit" value="Готово" class="btn">
         {% else %}
-            Вы не можете добавлять комментарии
+            <br>Вы не можете добавлять комментарии
         {% endif %}
     <h4>Комментарии:</h4>
     {% for comment_item in news_item.comments.all reversed %}
         <div class="comment">
-            <a class="link" href="{% url 'news:user' comment_item.user.id %}">{{ comment_item.user.username }}</a>
-            <p>{{ comment_item.text }}</p>
-            <div class="perms">
-                <span class="date">{{ comment_item.date }}</span>
-                {% if perms.news.delete_comments and not comment_item.user.is_superuser or user.is_superuser %}
-                    <a href="{% url  'news:del_comment' news_item.id comment_item.id %}">Удалить
-                        комментарий</a>
-                    {% if not user.id == comment_item.user_id %}
-                        <a href="{% url 'news:mute' comment_item.user_id %}">Замутить</a>
-                        <a href="{% url 'news:unmute' comment_item.user_id %}">Размутить</a>
+            <img src="http://127.0.0.1:8000/media/{{ comment_item.user.extended.avatar }}"
+                 alt="{{ comment_item.user.username }}">
+            <div class="comment_info">
+                <a class="link" href="{% url 'news:user' comment_item.user.id %}">{{ comment_item.user.username }}</a>
+                <p> {{ comment_item.text }}</p>
+                <div class="perms">
+                    <span class="date">{{ comment_item.date }}</span>
+                    {% if perms.news.delete_comments and not comment_item.user.is_superuser or user.is_superuser %}
+                        <a href="{% url  'news:del_comment' news_item.id comment_item.id %}">Удалить
+                            комментарий</a>
                     {% endif %}
-                {% endif %}
+                </div>
             </div>
         </div>
     {% endfor %}

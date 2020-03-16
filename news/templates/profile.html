@@ -3,27 +3,36 @@
     Профиль
 {% endblock %}
 {% block body %}
-    {% if user.is_authenticated %}
-        Логин: {{ user.username }}<br>
-        E-mail: {{ user.email }}<br>
-        Дата регистрации: {{ user.date_joined }}<br>
-        {% for i in group %}
-            {{ i.name }}
-        {% endfor %}
-        {% if perms.news.add_news  and add_news %}
-            <a class="btn" href="{% url 'news:addNews' %}">Добавить новость</a>
-        {% endif %}
-        <form method="POST">
+    <div class="info_content">
+        <h1 class="title">Профиль</h1>
+        <div class="profile_wrap">
+            <div class="avatar">
+                <img src="http://127.0.0.1:8000/media/{{ user.extended.avatar }}" alt="{{ user.username }}">
+                <form method="POST" enctype="multipart/form-data" action="{% url 'news:change_avatar' %}">
+                    {% csrf_token %}
+                    {{ avatar }}
+                    <input type="submit" value="Загрузить" class="btn">
+                </form>
+            </div>
+            <div class="profile_info">
+                <span>Id: {{ user.id }}</span>
+                <span>Логин: {{ user.username }}</span>
+                <span>E-mail: {{ user.email }}</span>
+                <span>Дата регистрации: {{ user.date_joined }}</span>
+                {% for i in group %}
+                    {{ i.name }}
+                {% endfor %}
+                {% if perms.news.add_news %}
+                    <a class="btn" href="{% url 'news:add_news' %}">Добавить новость</a>
+                {% endif %}
+            </div>
+        </div>
+        <h2 class="title">Смена пароля</h2>
+        <hr>
+        <form class="edit_pass" method="POST" action="{% url 'news:change_password' %}">
             {% csrf_token %}
-            {{ info }}
-            <input type="submit" value="Сохранить">
-        </form>
-        <form method="POST">
-            {% csrf_token %}
-            {{ editPassword }}
+            {{ edit_password }}
             <input type="submit" value="Изменить" class="btn">
         </form>
-    {% else %}
-        Авторизируйтесь
-    {% endif %}
+    </div>
 {% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}
+    Редактировать новость
+{% endblock %}
+{% block body %}
+    <div class="info_content">
+        <h1 class="title">Редактировать новость</h1>
+        {% if edit_news and perms.news.edit_news %}
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ edit_news }}
+                <input class="btn" type="submit" value="Сохранить">
+            </form>
+        {% endif %}
+    </div>
+{% endblock %}

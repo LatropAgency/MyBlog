@@ -1,4 +1,4 @@
-@media only screen and (max-device-width: 1024px) {
+@media screen and (max-device-width: 1024px) {
     .content  {
         padding: 40px 20px;
     }
@@ -6,27 +6,8 @@
         width: 100%;
     }
 }
-@media only screen and (max-device-width: 600px) {
-    .content {
-        padding:40px  0;
-    }
+@media screen and (max-device-width: 600px) {
     #menu > * {
         margin: 10px;
-    }
-}
-@media only screen and (max-device-width: 500px) {
-    #menu {
-        padding: 0;
-    }
-    .wrap {
-        flex-direction: column;
-    }
-
-    .show {
-        display: block;
-    }
-
-    .hide {
-        display: none;
     }
 }

@@ -5,12 +5,14 @@
 {% endblock %}
 
 {% block body %}
-    <form method="POST">
-        {% csrf_token %}
-        {% if signin %}
-            {{ signin }}
-            <input type="submit" value="Войти" class="btn">{% else %}
-        {% endif %}
-    </form>
-    <a class="link" href="{% url 'user:forget' %}">Забыли пароль?</a>
+    <div class="info_content">
+        <h1 class="title">Авторизация</h1>
+        <form method="POST">
+            {% csrf_token %}
+            {% if signin %}
+                {{ signin }}
+                <input type="submit" value="Войти" class="btn">{% else %}
+            {% endif %}
+        </form>
+    </div>
 {% endblock %}

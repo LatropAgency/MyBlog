@@ -1,20 +1,27 @@
 from django.shortcuts import render, redirect
 from .models import News, Comments
-from django.contrib.auth.models import User
-from .forms import commentForm, editPasswordForm, addNewsForm, UserInfoForm
+from django.contrib.auth import authenticate, login
+from .forms import commentForm, editPasswordForm, addNewsForm, AvatarForm
 from django.contrib.auth.hashers import check_password
-from django.contrib.auth.models import Group
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth.decorators import permission_required
-from django.views.generic import View, DetailView, ListView
-from django.shortcuts import get_object_or_404, get_list_or_404
+from django.contrib.auth.decorators import login_required, permission_required
+from django.views.generic import View
 from django.contrib import messages
+from django.contrib.auth.models import User, Group
 
-count = 5
+count = 4
+
+
+def print_messages(request, errors):
+    for field in errors:
+        for error in field.errors:
+            messages.error(request, error)
+
 
 def index(request):
     page_num = 0
-    query = list(reversed(get_list_or_404(News)))
+    query = list(reversed(News.objects.filter()))
+    if not request.user.has_perm('news.view_hidden_news'):
+        query = [item for item in query if not item.hidden]
     lst = reversed(query[page_num * count: (page_num + 1) * count:1])
     context = {'news': lst}
     if not (page_num + 1) * count >= len(query):
@@ -23,7 +30,9 @@ def index(request):
 
 
 def page(request, page_num):
-    query = list(reversed(get_list_or_404(News)))
+    query = list(reversed(News.objects.filter()))
+    if not request.user.has_perm('news.view_hidden_news'):
+        query = [item for item in query if not item.hidden]
     lst = reversed(query[page_num * count: (page_num + 1) * count:1])
     context = {'news': lst}
     if not page_num - 1 == -1:
@@ -33,32 +42,51 @@ def page(request, page_num):
     return render(request, 'index.html', context)
 
 
-def details(request, news_id):
-    query = get_object_or_404(News, pk=news_id)
-    query.views = query.views + 1
-    query.save()
-    comment = commentForm()
-    context = {"news_item": query}
-    if request.user.has_perm('news.add_comments'):
-        context["form"] = comment
-    if request.method == "POST":
-        comment = commentForm(request.POST)
-        if comment.is_valid():
-            comment = comment.cleaned_data
-            new_comment = Comments(user_id=request.user.id, text=comment['text'], news_id=news_id)
-            if request.user.has_perm('news.add_comments'):
+class NewsDetailsView(View):
+    def get(self, request, *args, **kwargs):
+        try:
+            news_item = News.objects.get(id=kwargs['news_id'])
+        except:
+            return redirect('news:error404')
+        if news_item.hidden:
+            if not request.user.has_perm('news.view_hidden_news'):
+                return redirect('news:error404')
+        news_item.views = news_item.views + 1
+        news_item.save()
+        return render(request, 'details.html', {"news_item": news_item, 'form': commentForm()})
+
+    def post(self, request, *args, **kwargs):
+        if request.user.has_perm('news.add_comments'):
+            comment = commentForm(request.POST)
+            if comment.is_valid():
+                comment = comment.cleaned_data
+                new_comment = Comments(user_id=request.user.id, text=comment['text'], news_id=kwargs['news_id'])
                 new_comment.save()
-            return redirect(f'/{news_id}')
-    return render(request, 'details.html', context)
+        else:
+            messages.error(request, 'Вы не можете оставлять комментарии')
+        return redirect('news:details', kwargs['news_id'])
 
 
 @login_required(login_url='user:auth')
-def profile(request):
-    context = {"group": request.user.groups.all(), 'info': UserInfoForm(), 'editPassword': editPasswordForm()}
-    user = get_object_or_404(User, pk=request.user.id)
-    if request.user.has_perm('news.add_news'):
-        context['add_news'] = addNewsForm()
+def change_avatar(request):
     if request.method == "POST":
+        user = User.objects.get(id=request.user.id)
+        avatar_form = AvatarForm(request.POST, request.FILES)
+        if avatar_form.is_valid():
+            avatar_form = avatar_form.cleaned_data
+            user.extended.avatar = avatar_form['image']
+            user.save()
+            messages.info(request, 'Изображение успешно загружено')
+        else:
+            print_messages(request, avatar_form)
+    return redirect('news:profile')
+
+
+@login_required(login_url='user:auth')
+def change_password(request):
+    if request.method == "POST":
+        user = User.objects.get(id=request.user.id)
+        username = user.username
         edit_password_form = editPasswordForm(request.POST)
         if edit_password_form.is_valid():
             edit_password_form = edit_password_form.cleaned_data
@@ -67,101 +95,165 @@ def profile(request):
             else:
                 user.set_password(edit_password_form['new_password'])
                 user.save()
-                messages.info(request, "Парль успешно изменён")
+                messages.info(request, "Пароль успешно изменён")
+                user = authenticate(request, username=username, password=edit_password_form['new_password'])
+                login(request, user)
         else:
-            for field in edit_password_form:
-                for error in field.errors:
-                    messages.error(request, error)
-    return render(request, 'profile.html', context)
+            print_messages(request, edit_password_form)
+    return redirect('news:profile')
 
 
 @login_required(login_url='user:auth')
+def profile(request):
+    return render(request, 'profile.html',
+                  {"group": request.user.groups.all(), 'edit_password': editPasswordForm(),
+                   'avatar': AvatarForm()})
+
+
+@permission_required('news.hide_news', login_url='news:error')
+def hide_news(request, news_id):
+    try:
+        news_item = News.objects.get(id=news_id)
+    except:
+        return redirect('news:error404')
+    if news_item.hidden:
+        messages.info(request, "Новость успешно показана")
+    else:
+        messages.info(request, "Новость успешно скрыта")
+    news_item.hidden = not news_item.hidden
+    news_item.save()
+    return redirect('news:index')
+
+
+@permission_required('news.edit_news', login_url='news:error')
+def edit_news(request, news_id):
+    if request.method == "POST":
+        news = addNewsForm(request.POST, request.FILES)
+        if news.is_valid():
+            news = news.cleaned_data
+            ns = News.objects.get(id=news_id)
+            ns.text = news['text']
+            ns.title = news['title']
+            ns.prev_text = news['prev_text']
+            ns.image = news['image']
+            ns.save()
+            messages.info(request, "Новость изменена")
+        else:
+            print_messages(request, news)
+    news = News.objects.get(id=news_id)
+    edit_form = addNewsForm(
+        initial={'title': news.title, 'text': news.text, 'prev_text': news.prev_text, 'image': news.image})
+    return render(request, 'edit_news.html', {'edit_news': edit_form})
+
+
+@permission_required('news.delete_news', login_url='news:error')
+def del_news(request, news_id):
+    try:
+        News.objects.get(id=news_id).delete()
+    except:
+        return redirect('news:error404')
+    messages.info(request, "Новость успешно удалёна")
+    return redirect('news:index')
+
+
 @permission_required('news.delete_comments', login_url='news:error')
 def del_comment(request, news_id, comment_id):
-    if request.user.has_perm('news.delete_comments'):
+    try:
         Comments.objects.get(id=comment_id).delete()
-        messages.info(request, "Комментарий успешно удалён")
-        return redirect(f'/{news_id}')
-    else:
-        return redirect(f'/{news_id}')
+    except:
+        return redirect('news:error404')
+    messages.info(request, "Комментарий успешно удалён")
+    return redirect(f'/{news_id}')
 
 
-@login_required(login_url='user:auth')
-@permission_required('auth.delete_group', login_url='news:error')
+@permission_required('auth.mute', login_url='news:error')
 def mute(request, user_id):
-    u = get_object_or_404(User, pk=user_id)
+    try:
+        u = User.objects.get(id=user_id)
+    except:
+        return redirect('news:error404')
     if u.has_perm('news.add_comments'):
         g = Group.objects.get(name="Пользователь")
         g.user_set.remove(u)
         messages.info(request, "Пользователь успешно замучен")
-        return render(request, 'details.html')
-    else:
-        return redirect('/')
+    return redirect('news:user', user_id)
 
 
-@permission_required('auth.add_group', login_url='news:error')
+@permission_required('auth.unmute', login_url='news:error')
 def unmute(request, user_id):
-    u = get_object_or_404(User, pk=user_id)
+    try:
+        u = User.objects.get(id=user_id)
+    except:
+        return redirect('news:error404')
     if not u.has_perm('news.add_comments'):
         g = Group.objects.get(name="Пользователь")
         g.user_set.add(u)
         messages.info(request, "Пользователь успешно размучен")
-        return render(request, 'details.html')
-    else:
-        return redirect('/')
+    return redirect('news:user', user_id)
 
 
-@login_required(login_url='user:auth')
+@permission_required('auth.add_group', login_url='news:error')
 def add_editor(request, user_id):
     if request.user.is_superuser:
-        u = get_object_or_404(User, pk=user_id)
-        g = Group.objects.get(name="Редактор")
-        g.user_set.add(u)
+        try:
+            user = User.objects.get(id=user_id)
+        except:
+            return redirect('news:error404')
+        group = Group.objects.get(name="Редактор")
+        group.user_set.add(user)
         messages.info(request, "Пользователю добавлены возможности редактора")
-        return render(request, 'user.html')
+        return redirect('news:user', user_id)
     else:
         return redirect('news:error')
 
 
-@login_required(login_url='user:auth')
+@permission_required('auth.add_group', login_url='news:error')
 def add_moderator(request, user_id):
     if request.user.is_superuser:
-        u = get_object_or_404(User, pk=user_id)
+        try:
+            user = User.objects.get(id=user_id)
+        except:
+            return redirect('news:error404')
         g = Group.objects.get(name="Модератор")
-        g.user_set.add(u)
+        g.user_set.add(user)
         messages.info(request, "Пользователю добавлены возможности модератора")
-        return render(request, 'user.html')
+        return redirect('news:user', user_id)
     else:
         return redirect('news:error')
 
 
-@login_required(login_url='user:auth')
+@permission_required('auth.delete_group', login_url='news:error')
 def del_editor(request, user_id):
     if request.user.is_superuser:
-        u = get_object_or_404(User, pk=user_id)
+        try:
+            user = User.objects.get(id=user_id)
+        except:
+            return redirect('news:error404')
         g = Group.objects.get(name="Редактор")
-        g.user_set.remove(u)
+        g.user_set.remove(user)
         messages.info(request, "Права редактора удалены")
-        return render(request, 'user.html')
+        return redirect('news:user', user_id)
     else:
         return redirect('news:error')
 
 
-@login_required(login_url='user:auth')
+@permission_required('auth.delete_group', login_url='news:error')
 def del_moderator(request, user_id):
     if request.user.is_superuser:
-        u = get_object_or_404(User, pk=user_id)
+        try:
+            user = User.objects.get(id=user_id)
+        except:
+            return redirect('news:error404')
         g = Group.objects.get(name="Модератор")
-        g.user_set.remove(u)
+        g.user_set.remove(user)
         messages.info(request, "Права модератора удалены")
-        return render(request, 'user.html')
+        return redirect('news:user', user_id)
     else:
         return redirect('news:error')
 
 
 @permission_required('news.add_news', login_url='news:error')
-def addNews(request):
-    context = {}
+def save_news(request):
     if request.method == "POST":
         add_news = addNewsForm(request.POST, request.FILES)
         if add_news.is_valid():
@@ -170,17 +262,41 @@ def addNews(request):
                       image=add_news['image'], prev_text=add_news['prev_text'])
             ns.save()
             messages.info(request, "Новость опубликована")
-    else:
-        context["add_news"] = addNewsForm()
-    return render(request, 'addnews.html', context)
+        else:
+            print_messages(request, add_news)
+    return redirect('news:add_news')
 
 
-@login_required(login_url='user:auth')
-def user_profile(request, user_id):
-    usr = get_object_or_404(User, pk=user_id)
-    group = usr.groups.all()
-    return render(request, 'user.html', {'usr': usr, 'group': group})
+@permission_required('news.add_news', login_url='news:error')
+def add_news(request):
+    return render(request, 'addnews.html', {'add_news': addNewsForm()})
 
+
+class UserView(View):
+    def get(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            try:
+                user = User.objects.get(id=kwargs['user_id'])
+                group = user.groups.all()
+                usr = editor = moderator = False
+                for i in group:
+                    if i.name == 'Пользователь':
+                        usr = True
+                    elif i.name == 'Редактор':
+                        editor = True
+                    elif i.name == 'Модератор':
+                        moderator = True
+                return render(request, 'user.html',
+                              {'usr': user, 'group': group, 'u': usr, 'editor': editor, 'moderator': moderator})
+            except:
+                messages.error(request, 'Такого пользователя нет')
+                return redirect('news:index')
+        else:
+            return redirect('user:auth')
 
 def error(request):
-    return render(request, 'error.html', {})
+    return render(request, 'error.html')
+
+
+def error404(request):
+    return render(request, '404.html')

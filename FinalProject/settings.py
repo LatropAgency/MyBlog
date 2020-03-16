@@ -26,7 +26,7 @@ SECRET_KEY = '5nm7(sn*z8t#wtq#f26t8q%iu!z%4bez_l5g+f6ynwqift9tqr'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['myblogitechart.herokuapp.com','127.0.0.1']
+ALLOWED_HOSTS = ['latrop.pythonanywhere.com','myblogitechart.herokuapp.com','127.0.0.1']
 
 
 # Application definition
@@ -122,13 +122,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
-
-
-EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'csdmmaxplay@gmail.com'
-EMAIL_HOST_PASSWORD = 'csdmmaxplayincsgo'
-EMAIL_PORT = 587
 
 
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
