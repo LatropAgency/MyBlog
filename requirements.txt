@@ -1,6 +1,6 @@
 asgiref==3.2.3
 dj-database-url==0.5.0
-Django==3.5
+Django==3.0.3
 django-heroku==0.3.1
 django-sendgrid-v5==0.8.1
 future==0.18.2
@@ -8,6 +8,7 @@ gunicorn==20.0.4
 numpy==1.18.1
 pandas==1.0.1
 Pillow==7.0.0
+psycopg2==2.8.4
 python-dateutil==2.8.1
 python-http-client==3.2.6
 pytz==2019.3
