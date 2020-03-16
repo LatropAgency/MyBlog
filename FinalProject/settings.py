@@ -26,7 +26,7 @@ SECRET_KEY = '5nm7(sn*z8t#wtq#f26t8q%iu!z%4bez_l5g+f6ynwqift9tqr'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['latrop.pythonanywhere.com','myblogitechart.herokuapp.com','127.0.0.1']
+ALLOWED_HOSTS = ['latropblog.herokuapp.com','127.0.0.1']
 
 
 # Application definition
