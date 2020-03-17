@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}
+    Забыли пароль
+{% endblock %}
+{% block body %}
+    <div class="info_content">
+        <h1 class="title">Восстоновление пароля</h1>
+        {% if forget %}
+            <form method="POST">
+                {% csrf_token %}
+                {{ forget }}
+                <input type="submit" value="Отправить" class="btn">
+            </form>
+        {% endif %}
+    </div>
+{% endblock %}

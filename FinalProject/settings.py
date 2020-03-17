@@ -123,3 +123,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'csdmmaxplay@gmail.com'
+EMAIL_HOST_PASSWORD = 'csdmmaxplayindota2'
+EMAIL_PORT = 587

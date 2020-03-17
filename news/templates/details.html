@@ -29,7 +29,7 @@
     <h4>Комментарии:</h4>
     {% for comment_item in news_item.comments.all reversed %}
         <div class="comment">
-            <img src="https://latropblog.herokuapp.com/media/{{ comment_item.user.extended.avatar }}"
+            <img src="http://127.0.0.1:8000/media/{{ comment_item.user.extended.avatar }}"
                  alt="{{ comment_item.user.username }}">
             <div class="comment_info">
                 <a class="link" href="{% url 'news:user' comment_item.user.id %}">{{ comment_item.user.username }}</a>

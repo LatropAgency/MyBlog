@@ -7,7 +7,7 @@
         <h1 class="title">Профиль</h1>
         <div class="profile_wrap">
             <div class="avatar">
-                <img src="https://latropblog.herokuapp.com/media/{{ user.extended.avatar }}" alt="{{ user.username }}">
+                <img src="http://127.0.0.1:8000/media/{{ user.extended.avatar }}" alt="{{ user.username }}">
                 <form method="POST" enctype="multipart/form-data" action="{% url 'news:change_avatar' %}">
                     {% csrf_token %}
                     {{ avatar }}
