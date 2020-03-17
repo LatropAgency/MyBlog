@@ -28,14 +28,21 @@ class AuthView(View):
         auth_user = AuthForm(request.POST)
         if auth_user.is_valid():
             auth_user = auth_user.cleaned_data
-            user = authenticate(request, username=auth_user['login'], password=auth_user['password'])
-            if not user == None:
-                login(request, user)
-                return redirect('news:index')
-            messages.error(request, "Пользователя с таким логином и паролем не найдено")
+            try:
+                u = User.objects.get(username=auth_user['login'])
+                user = authenticate(request, username=auth_user['login'], password=auth_user['password'])
+                if u.is_active:
+                    login(request, user)
+                    return redirect('news:index')
+                else:
+                    messages.error(request, "Активируйте аккаунт")
+                    return render(request, 'auth.html', {'signin': AuthForm()})
+            except:
+                messages.error(request, "Пользователя с таким логином и паролем не найдено")
+                return render(request, 'auth.html', {'signin': AuthForm()})
+
         else:
             print_messages(request, auth_user)
-        return render(request, 'auth.html', {'signin': AuthForm()})
 
 
 class RegView(View):
@@ -55,6 +62,7 @@ class RegView(View):
             g.user_set.add(user)
             send_mail('Активация аккаунта', f'Нажмите: https://latropblog.herokuapp.com/user/activate/{hash}',
                       'csdmmaxplay@gmail.com', [user.email], False)
+            user.is_active = False
             user.save()
             messages.info(request, "Вы успешно зарегистрировались.")
         else:
