@@ -53,7 +53,7 @@ class RegView(View):
             user = User.objects.create_user(reg_user['login'], reg_user['email'], reg_user['password'])
             g = Group.objects.get(name="Пользователь")
             g.user_set.add(user)
-            send_mail('Активация аккаунта', f'Нажмите: http://127.0.0.1:8000/user/reset/{hash}',
+            send_mail('Активация аккаунта', f'Нажмите: https://latropblog.herokuapp.com/user/activate/{hash}',
                       'csdmmaxplay@gmail.com', [user.email], False)
             user.save()
             messages.info(request, "Вы успешно зарегистрировались.")
@@ -82,7 +82,7 @@ class ForgetView(View):
             user_form = user_form.cleaned_data
             user = User.objects.get(username=user_form['username'])
             hash = hashlib.sha1(user.username.encode('utf-8')).hexdigest()
-            send_mail('Забыли пароль', f'Сбросить пароль: http://127.0.0.1:8000/user/reset/{hash}',
+            send_mail('Забыли пароль', f'Сбросить пароль: https://latropblog.herokuapp.com/user/reset/{hash}',
                       'csdmmaxplay@gmail.com', [user.email], False)
             messages.info(request, 'Проверьте почту')
         else:
