@@ -8,7 +8,7 @@
             {% if perms.news.view_hidden_news or not news_item.hidden %}
                 <div class="news_item {% if news_item.hidden %}hidden{% endif %}">
                     <div class="img_container">
-                        <img src="http://latropblog.herokuapp.com/media/{{ news_item.image }}">
+                        <img src="http://127.0.0.1:8000/media/{{ news_item.image }}">
                     </div>
                     <div class="info_item">
                         <div class="info">

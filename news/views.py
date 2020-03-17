@@ -1,14 +1,14 @@
-from django.shortcuts import render, redirect
 from .models import News, Comments
+from .forms import CommentForm, EditPasswordForm, AddNewsForm, AvatarForm
+from django.contrib import messages
+from django.shortcuts import render, redirect
+from django.views.generic import View
 from django.contrib.auth import authenticate, login
-from .forms import commentForm, editPasswordForm, addNewsForm, AvatarForm
 from django.contrib.auth.hashers import check_password
 from django.contrib.auth.decorators import login_required, permission_required
-from django.views.generic import View
-from django.contrib import messages
 from django.contrib.auth.models import User, Group
 
-count = 4
+COUNT = 4
 
 
 def print_messages(request, errors):
@@ -22,9 +22,9 @@ def index(request):
     query = list(reversed(News.objects.filter()))
     if not request.user.has_perm('news.view_hidden_news'):
         query = [item for item in query if not item.hidden]
-    lst = reversed(query[page_num * count: (page_num + 1) * count:1])
+    lst = reversed(query[page_num * COUNT: (page_num + 1) * COUNT:1])
     context = {'news': lst}
-    if not (page_num + 1) * count >= len(query):
+    if not (page_num + 1) * COUNT >= len(query):
         context['forward'] = page_num + 1
     return render(request, 'index.html', context)
 
@@ -33,11 +33,11 @@ def page(request, page_num):
     query = list(reversed(News.objects.filter()))
     if not request.user.has_perm('news.view_hidden_news'):
         query = [item for item in query if not item.hidden]
-    lst = reversed(query[page_num * count: (page_num + 1) * count:1])
+    lst = reversed(query[page_num * COUNT: (page_num + 1) * COUNT:1])
     context = {'news': lst}
     if not page_num - 1 == -1:
         context['back'] = str(page_num - 1)
-    if not (page_num + 1) * count >= len(query):
+    if not (page_num + 1) * COUNT >= len(query):
         context['forward'] = page_num + 1
     return render(request, 'index.html', context)
 
@@ -53,11 +53,11 @@ class NewsDetailsView(View):
                 return redirect('news:error404')
         news_item.views = news_item.views + 1
         news_item.save()
-        return render(request, 'details.html', {"news_item": news_item, 'form': commentForm()})
+        return render(request, 'details.html', {"news_item": news_item, 'form': CommentForm()})
 
     def post(self, request, *args, **kwargs):
         if request.user.has_perm('news.add_comments'):
-            comment = commentForm(request.POST)
+            comment = CommentForm(request.POST)
             if comment.is_valid():
                 comment = comment.cleaned_data
                 new_comment = Comments(user_id=request.user.id, text=comment['text'], news_id=kwargs['news_id'])
@@ -87,7 +87,7 @@ def change_password(request):
     if request.method == "POST":
         user = User.objects.get(id=request.user.id)
         username = user.username
-        edit_password_form = editPasswordForm(request.POST)
+        edit_password_form = EditPasswordForm(request.POST)
         if edit_password_form.is_valid():
             edit_password_form = edit_password_form.cleaned_data
             if not (check_password(edit_password_form['old_password'], user.password)):
@@ -106,7 +106,7 @@ def change_password(request):
 @login_required(login_url='user:auth')
 def profile(request):
     return render(request, 'profile.html',
-                  {"group": request.user.groups.all(), 'edit_password': editPasswordForm(),
+                  {"group": request.user.groups.all(), 'edit_password': EditPasswordForm(),
                    'avatar': AvatarForm()})
 
 
@@ -128,7 +128,7 @@ def hide_news(request, news_id):
 @permission_required('news.edit_news', login_url='news:error')
 def edit_news(request, news_id):
     if request.method == "POST":
-        news = addNewsForm(request.POST, request.FILES)
+        news = AddNewsForm(request.POST, request.FILES)
         if news.is_valid():
             news = news.cleaned_data
             ns = News.objects.get(id=news_id)
@@ -141,7 +141,7 @@ def edit_news(request, news_id):
         else:
             print_messages(request, news)
     news = News.objects.get(id=news_id)
-    edit_form = addNewsForm(
+    edit_form = AddNewsForm(
         initial={'title': news.title, 'text': news.text, 'prev_text': news.prev_text, 'image': news.image})
     return render(request, 'edit_news.html', {'edit_news': edit_form})
 
@@ -255,7 +255,7 @@ def del_moderator(request, user_id):
 @permission_required('news.add_news', login_url='news:error')
 def save_news(request):
     if request.method == "POST":
-        add_news = addNewsForm(request.POST, request.FILES)
+        add_news = AddNewsForm(request.POST, request.FILES)
         if add_news.is_valid():
             add_news = add_news.cleaned_data
             ns = News(title=add_news['title'], text=add_news['text'], author_id=request.user.id,
@@ -269,7 +269,7 @@ def save_news(request):
 
 @permission_required('news.add_news', login_url='news:error')
 def add_news(request):
-    return render(request, 'addnews.html', {'add_news': addNewsForm()})
+    return render(request, 'addnews.html', {'add_news': AddNewsForm()})
 
 
 class UserView(View):
@@ -277,25 +277,26 @@ class UserView(View):
         if request.user.is_authenticated:
             try:
                 user = User.objects.get(id=kwargs['user_id'])
-                group = user.groups.all()
-                usr = editor = moderator = False
-                for i in group:
-                    if i.name == 'Пользователь':
-                        usr = True
-                    elif i.name == 'Редактор':
-                        editor = True
-                    elif i.name == 'Модератор':
-                        moderator = True
-                return render(request, 'user.html',
-                              {'usr': user, 'group': group, 'u': usr, 'editor': editor, 'moderator': moderator})
             except:
                 messages.error(request, 'Такого пользователя нет')
                 return redirect('news:index')
+            group = user.groups.all()
+            usr = editor = moderator = False
+            for i in group:
+                if i.name == 'Пользователь':
+                    usr = True
+                elif i.name == 'Редактор':
+                    editor = True
+                elif i.name == 'Модератор':
+                    moderator = True
+            return render(request, 'user.html',
+                          {'usr': user, 'group': group, 'u': usr, 'editor': editor, 'moderator': moderator})
         else:
             return redirect('user:auth')
 
-def error(request):
-    return render(request, 'error.html')
+
+def error405(request):
+    return render(request, '405.html')
 
 
 def error404(request):

@@ -1,11 +1,10 @@
+from .forms import AuthForm, RegForm
+from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.models import User
 from django.views.generic.base import View
-from .forms import authForm, regForm
-from django.contrib.auth.models import Group
+from django.contrib.auth.models import User, Group
 from django.contrib.auth.decorators import login_required
-from django.contrib import messages
 
 
 def print_messages(request, errors):
@@ -17,38 +16,35 @@ def print_messages(request, errors):
 class AuthView(View):
     def get(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
-            return render(request, 'auth.html', {'signin': authForm()})
+            return render(request, 'auth.html', {'signin': AuthForm()})
         else:
             messages.error(request, "Вы уже авторизованы")
             return redirect('news:index')
 
     def post(self, request, *args, **kwargs):
-        auth_user = authForm(request.POST)
+        auth_user = AuthForm(request.POST)
         if auth_user.is_valid():
             auth_user = auth_user.cleaned_data
-            try:
-                user = authenticate(request, username=auth_user['login'], password=auth_user['password'])
-                if not user == None:
-                    login(request, user)
-                    return redirect('news:index')
-            except:
-                messages.error(request, "Пользователя с таким логином и паролем не найдено")
-                return render(request, 'auth.html', {'signin': authForm()})
-
+            user = authenticate(request, username=auth_user['login'], password=auth_user['password'])
+            if not user == None:
+                login(request, user)
+                return redirect('news:index')
+            messages.error(request, "Пользователя с таким логином и паролем не найдено")
         else:
             print_messages(request, auth_user)
+        return render(request, 'auth.html', {'signin': AuthForm()})
 
 
 class RegView(View):
     def get(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
-            return render(request, 'reg.html', {'signup': regForm()})
+            return render(request, 'reg.html', {'signup': RegForm()})
         else:
             messages.error(request, "Вы уже авторизованы")
             return redirect('news:index')
 
     def post(self, request, *args, **kwargs):
-        reg_user = regForm(request.POST)
+        reg_user = RegForm(request.POST)
         if reg_user.is_valid():
             reg_user = reg_user.cleaned_data
             user = User.objects.create_user(reg_user['login'], reg_user['email'], reg_user['password'])
@@ -58,7 +54,7 @@ class RegView(View):
             messages.info(request, "Вы успешно зарегистрировались.")
         else:
             print_messages(request, reg_user)
-        return render(request, 'reg.html', {'signup': regForm()})
+        return render(request, 'reg.html', {'signup': RegForm()})
 
 
 @login_required(login_url='user:auth')
