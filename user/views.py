@@ -60,6 +60,7 @@ class RegView(View):
             user = User.objects.create_user(reg_user['login'], reg_user['email'], reg_user['password'])
             g = Group.objects.get(name="Пользователь")
             g.user_set.add(user)
+            hash = hashlib.sha1(user.username.encode('utf-8')).hexdigest()
             send_mail('Активация аккаунта', f'Нажмите: https://latropblog.herokuapp.com/user/activate/{hash}',
                       'csdmmaxplay@gmail.com', [user.email], False)
             user.is_active = False
