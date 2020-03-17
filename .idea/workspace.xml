@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cafbca74-c58d-42e9-8c02-1c40e04ef1ca" name="Default Changelist" comment="" />
+    <list default="true" id="cafbca74-c58d-42e9-8c02-1c40e04ef1ca" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/news/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/news/templates/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/news/templates/details.html" beforeDir="false" afterPath="$PROJECT_DIR$/news/templates/details.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/news/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/news/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/news/templates/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/news/templates/profile.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/news/templates/user.html" beforeDir="false" afterPath="$PROJECT_DIR$/news/templates/user.html" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -96,7 +103,7 @@
       <workItem from="1584428090507" duration="3129000" />
       <workItem from="1584438824733" duration="128000" />
       <workItem from="1584458388246" duration="957000" />
-      <workItem from="1584459999558" duration="1642000" />
+      <workItem from="1584459999558" duration="2065000" />
     </task>
     <servers />
   </component>
