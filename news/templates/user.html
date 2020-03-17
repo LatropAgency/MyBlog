@@ -8,7 +8,7 @@
         <div class="profile_wrap">
             {% if user.is_authenticated and usr %}
                 <div class="avatar">
-                    <img src="http://127.0.0.1:8000/media/{{ usr.extended.avatar }}" alt="{{ usr.username }}">
+                    <img src="https://latropblog.herokuapp.com/media/{{ usr.extended.avatar }}" alt="{{ usr.username }}">
                 </div>
                 <div class="profile_info">
                     <span>Id: {{ usr.id }}</span>

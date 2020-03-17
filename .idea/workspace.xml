@@ -3,20 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="cafbca74-c58d-42e9-8c02-1c40e04ef1ca" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FinalProject/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/FinalProject/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/news/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/news/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/news/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/news/forms.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/news/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/news/templates/base.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/news/templates/details.html" beforeDir="false" afterPath="$PROJECT_DIR$/news/templates/details.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/news/templates/error.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/news/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/news/templates/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/news/templates/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/news/templates/profile.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/news/templates/user.html" beforeDir="false" afterPath="$PROJECT_DIR$/news/templates/user.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/news/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/news/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/news/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/news/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/user/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/user/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -110,6 +101,7 @@
       <workItem from="1584169334608" duration="11233000" />
       <workItem from="1584209743597" duration="42263000" />
       <workItem from="1584428090507" duration="3129000" />
+      <workItem from="1584438824733" duration="67000" />
     </task>
     <servers />
   </component>
@@ -149,10 +141,10 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="184" y="7" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1583996983041" />
-    <state x="379" y="189" key="com.intellij.ide.util.TipDialog" timestamp="1584428089211">
+    <state x="379" y="189" key="com.intellij.ide.util.TipDialog" timestamp="1584438835612">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="379" y="189" key="com.intellij.ide.util.TipDialog/0.0.1366.728@0.0.1366.728" timestamp="1584428089211" />
+    <state x="379" y="189" key="com.intellij.ide.util.TipDialog/0.0.1366.728@0.0.1366.728" timestamp="1584438835612" />
     <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1584385942341">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
