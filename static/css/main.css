@@ -331,6 +331,10 @@ footer {
     position: relative;
 }
 
+#notifications:hover {
+    opacity: 0.9;
+}
+
 #notifications li {
     padding-left: 20px;
 }
